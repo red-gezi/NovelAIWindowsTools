@@ -32,11 +32,14 @@
             this.btn_Text2Imgs = new System.Windows.Forms.Button();
             this.btn_Config = new System.Windows.Forms.Button();
             this.btn_images = new System.Windows.Forms.Button();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.text_Tag = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Text2Img
             // 
-            this.btn_Text2Img.Location = new System.Drawing.Point(65, 13);
+            this.btn_Text2Img.Location = new System.Drawing.Point(285, 88);
             this.btn_Text2Img.Name = "btn_Text2Img";
             this.btn_Text2Img.Size = new System.Drawing.Size(107, 50);
             this.btn_Text2Img.TabIndex = 0;
@@ -46,7 +49,7 @@
             // 
             // btn_Text2Imgs
             // 
-            this.btn_Text2Imgs.Location = new System.Drawing.Point(65, 87);
+            this.btn_Text2Imgs.Location = new System.Drawing.Point(285, 162);
             this.btn_Text2Imgs.Name = "btn_Text2Imgs";
             this.btn_Text2Imgs.Size = new System.Drawing.Size(107, 50);
             this.btn_Text2Imgs.TabIndex = 1;
@@ -56,7 +59,7 @@
             // 
             // btn_Config
             // 
-            this.btn_Config.Location = new System.Drawing.Point(65, 157);
+            this.btn_Config.Location = new System.Drawing.Point(285, 232);
             this.btn_Config.Name = "btn_Config";
             this.btn_Config.Size = new System.Drawing.Size(107, 23);
             this.btn_Config.TabIndex = 2;
@@ -66,7 +69,7 @@
             // 
             // btn_images
             // 
-            this.btn_images.Location = new System.Drawing.Point(65, 186);
+            this.btn_images.Location = new System.Drawing.Point(285, 261);
             this.btn_images.Name = "btn_images";
             this.btn_images.Size = new System.Drawing.Size(107, 23);
             this.btn_images.TabIndex = 3;
@@ -74,18 +77,40 @@
             this.btn_images.UseVisualStyleBackColor = true;
             this.btn_images.Click += new System.EventHandler(this.btn_images_Click);
             // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(33, 86);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(164, 221);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox.TabIndex = 4;
+            this.pictureBox.TabStop = false;
+            // 
+            // text_Tag
+            // 
+            this.text_Tag.Location = new System.Drawing.Point(33, 34);
+            this.text_Tag.Multiline = true;
+            this.text_Tag.Name = "text_Tag";
+            this.text_Tag.Size = new System.Drawing.Size(359, 35);
+            this.text_Tag.TabIndex = 5;
+            this.text_Tag.TextChanged += new System.EventHandler(this.text_Tag_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(237, 221);
+            this.ClientSize = new System.Drawing.Size(471, 319);
+            this.Controls.Add(this.text_Tag);
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.btn_images);
             this.Controls.Add(this.btn_Config);
             this.Controls.Add(this.btn_Text2Imgs);
             this.Controls.Add(this.btn_Text2Img);
             this.Name = "Form1";
             this.Text = "Ai画图桌面程序";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -95,6 +120,8 @@
         private System.Windows.Forms.Button btn_Text2Imgs;
         private System.Windows.Forms.Button btn_Config;
         private System.Windows.Forms.Button btn_images;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.TextBox text_Tag;
     }
 }
 

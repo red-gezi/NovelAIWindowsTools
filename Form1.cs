@@ -34,7 +34,7 @@ namespace NovelAIWindowsTools
                 return value;
             }
         }
-        string model => int.Parse(File.ReadAllLines("config.ini")[5])==0? "safe-diffusion" : "nai-diffusion";
+        string model => int.Parse(File.ReadAllLines("config.ini")[5]) == 0 ? "safe-diffusion" : "nai-diffusion";
 
         int generateCount => int.Parse(File.ReadAllLines("config.ini")[7]);
         int width
@@ -66,6 +66,7 @@ namespace NovelAIWindowsTools
         public void Init()
         {
             Directory.CreateDirectory("text2img");
+            text_Tag.Text = keyword;
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             client = new RestClient("https://api.novelai.net/ai/generate-image");
             client.Timeout = -1;
@@ -91,10 +92,27 @@ namespace NovelAIWindowsTools
             var body = $@"{{""input"":""masterpiece, best quality,{keyword}"",""model"":""{model}"",""parameters"":{{""width"":{width},""height"":{height},""scale"":11,""sampler"":""k_euler_ancestral"",""steps"":28,""seed"":{seed + num},""n_samples"":1,""ucPreset"":0,""qualityToggle"":true,""uc"":""lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry""}}}}";
             request.AddParameter("application/json", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-            Console.WriteLine("返回数据包长度"+response.Content.Length);
-            var data = response.Content.Replace("event: newImage\nid: 1\ndata:", "");
-            byte[] bytes = Convert.FromBase64String(data);
-            File.WriteAllBytes($"text2img/[masterpiece, best quality,{keyword}]_{seed + num}.jpg", bytes);
+            Console.WriteLine("返回数据包长度" + response.Content.Length);
+            try
+            {
+                var data = response.Content.Replace("event: newImage\nid: 1\ndata:", "");
+                byte[] bytes = Convert.FromBase64String(data);
+                string fileName = $"text2img/[masterpiece, best quality,{keyword}]_{seed + num}.jpg";
+                File.WriteAllBytes(fileName, bytes);
+
+                pictureBox.Invoke(new EventHandler(delegate
+                {
+                    using (Image image = Image.FromFile(fileName))
+                    {
+                        Bitmap temp = new Bitmap(image);
+                        pictureBox.Image = temp;
+                    }
+                }));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("图片解析出错");
+            }
         }
 
         private void btn_Text2Img_Click(object sender, EventArgs e)
@@ -122,5 +140,12 @@ namespace NovelAIWindowsTools
         private void btn_Config_Click(object sender, EventArgs e) => Process.Start("config.ini");
 
         private void btn_images_Click(object sender, EventArgs e) => Process.Start("text2img");
+
+        private void text_Tag_TextChanged(object sender, EventArgs e)
+        {
+            var lines = File.ReadAllLines("config.ini");
+            lines[1] = text_Tag.Text;
+            File.WriteAllLines("config.ini", lines);
+        }
     }
 }
