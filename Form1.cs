@@ -102,11 +102,15 @@ namespace NovelAIWindowsTools
 
                 pictureBox.Invoke(new EventHandler(delegate
                 {
-                    using (Image image = Image.FromFile(fileName))
+                    try
                     {
-                        Bitmap temp = new Bitmap(image);
-                        pictureBox.Image = temp;
+                        using (Image image = Image.FromFile(fileName))
+                        {
+                            Bitmap temp = new Bitmap(image);
+                            pictureBox.Image = temp;
+                        }
                     }
+                    catch { }
                 }));
             }
             catch (Exception)
