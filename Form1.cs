@@ -55,8 +55,19 @@ namespace NovelAIWindowsTools
         }
         RestClient client;
         RestRequest request;
+        class MyClass
+        {
+          public  string text = "gezi";
+        }
         public Form1()
         {
+            MyClass a=null;
+            MyClass b = new MyClass();
+            Console.WriteLine(@"\\\");
+            Console.WriteLine(b?.text);
+            Console.WriteLine((a?.text??"")=="");
+            Console.WriteLine(a?.text == null);
+            Console.WriteLine(@"\\\");
             InitializeComponent();
             Init();
         }
@@ -78,7 +89,7 @@ namespace NovelAIWindowsTools
             request.AddHeader("authority", "api.novelai.net");
             request.AddHeader("accept", "*/*");
             request.AddHeader("accept-language", "zh-CN,zh;q=0.9");
-            request.AddHeader("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdJVTY1N3l4YzhVX3ZFVWU3dkwxSiIsIm5jIjoiY2NkSHoyc3BDc1luU29mWkloUUpzIiwiaWF0IjoxNjY2ODM5MjMwLCJleHAiOjE2Njk0MzEyMzB9.81py6Lr_qxgrAo8FTQXY_SBFPoRinLfdxK4X9xuispE");
+            request.AddHeader("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdJVTY1N3l4YzhVX3ZFVWU3dkwxSiIsIm5jIjoiMVZXS1Q4NVNXdkJrS0ZqV3MycDFqIiwiaWF0IjoxNjcyNzM3ODAzLCJleHAiOjE2NzUzMjk4MDN9.wiTw2AZrKwG9cfnagZEctduiV8G7XK-z2MOxFaF8QZM");
             request.AddHeader("content-type", "application/json");
             request.AddHeader("origin", "https://novelai.net");
             request.AddHeader("referer", "https://novelai.net/");
@@ -89,7 +100,8 @@ namespace NovelAIWindowsTools
             request.AddHeader("sec-fetch-mode", "cors");
             request.AddHeader("sec-fetch-site", "same-site");
             client.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36";
-            var body = $@"{{""input"":""masterpiece, best quality,{keyword}"",""model"":""{model}"",""parameters"":{{""width"":{width},""height"":{height},""scale"":11,""sampler"":""k_euler_ancestral"",""steps"":28,""seed"":{seed + num},""n_samples"":1,""ucPreset"":0,""qualityToggle"":true,""uc"":""lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry""}}}}";
+            //var body = $@"{{""input"":""masterpiece, best quality,{keyword}"",""model"":""{model}"",""parameters"":{{""width"":{width},""height"":{height},""scale"":11,""sampler"":""k_euler_ancestral"",""steps"":28,""seed"":{seed + num},""n_samples"":1,""ucPreset"":0,""qualityToggle"":true,""uc"":""lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry""}}}}";
+            var body = $@"{{""input"":""masterpiece, best quality,{keyword}"",""model"":""{model}"",""parameters"":{{""width"":{width},""height"":{height},""scale"":11,""sampler"":""k_euler_ancestral"",""steps"":28,""seed"":{seed + num},""n_samples"":1,""ucPreset"":0,""qualityToggle"":true,""uc"":""bad feet_hand_finger_leg_eye,missing fingers,worst low normal quality,bad face,blurry:1.1,Asymmetrical eyes,Simple background, mutation, poorly drawn, huge breasts, huge haunch, huge thighs, more than 2 nipples, huge calf, bad anatomy, liquid body, disfigured, malformed, mutated, anatomical nonsense, text font ui, error, malformed hands, long neck, blurred, lowers, lowres, bad proportions, bad shadow, uncoordinated body, unnatural body, text, ui, error, cropped, watermark, username, blurry, JPEG artifacts, signature, 3D, bad hairs, poorly drawn hairs, fused hairs, big muscles, ugly, bad face, fused face, poorly drawn face, cloned face, big face, long face, bad eyes, fused eyes poorly drawn eyes, extra eyes, malformed limbs""}}}}";
             request.AddParameter("application/json", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             Console.WriteLine("返回数据包长度" + response.Content.Length);
@@ -97,7 +109,8 @@ namespace NovelAIWindowsTools
             {
                 var data = response.Content.Replace("event: newImage\nid: 1\ndata:", "");
                 byte[] bytes = Convert.FromBase64String(data);
-                string fileName = $"text2img/[masterpiece, best quality,{keyword}]_{seed + num}.jpg";
+                //string fileName = $"text2img/[masterpiece, best quality,{keyword}]_{seed + num}.jpg";
+                string fileName = $"text2img/[masterpiece, best quality,]_{seed + num}.jpg";
                 File.WriteAllBytes(fileName, bytes);
 
                 pictureBox.Invoke(new EventHandler(delegate
@@ -134,6 +147,7 @@ namespace NovelAIWindowsTools
             {
                 for (int i = 0; i < generateCount; i++)
                 {
+
                     TextToImage(seed + i);
                     Console.WriteLine(DateTime.Now + "生成完毕");
                     await Task.Delay(5000);
