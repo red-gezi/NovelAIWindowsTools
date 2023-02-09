@@ -34,12 +34,22 @@
             this.btn_images = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.text_Tag = new System.Windows.Forms.TextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Text2Img
             // 
-            this.btn_Text2Img.Location = new System.Drawing.Point(285, 88);
+            this.btn_Text2Img.Location = new System.Drawing.Point(3, 12);
             this.btn_Text2Img.Name = "btn_Text2Img";
             this.btn_Text2Img.Size = new System.Drawing.Size(107, 50);
             this.btn_Text2Img.TabIndex = 0;
@@ -49,7 +59,7 @@
             // 
             // btn_Text2Imgs
             // 
-            this.btn_Text2Imgs.Location = new System.Drawing.Point(285, 162);
+            this.btn_Text2Imgs.Location = new System.Drawing.Point(3, 77);
             this.btn_Text2Imgs.Name = "btn_Text2Imgs";
             this.btn_Text2Imgs.Size = new System.Drawing.Size(107, 50);
             this.btn_Text2Imgs.TabIndex = 1;
@@ -59,7 +69,7 @@
             // 
             // btn_Config
             // 
-            this.btn_Config.Location = new System.Drawing.Point(285, 232);
+            this.btn_Config.Location = new System.Drawing.Point(3, 147);
             this.btn_Config.Name = "btn_Config";
             this.btn_Config.Size = new System.Drawing.Size(107, 23);
             this.btn_Config.TabIndex = 2;
@@ -69,7 +79,7 @@
             // 
             // btn_images
             // 
-            this.btn_images.Location = new System.Drawing.Point(285, 261);
+            this.btn_images.Location = new System.Drawing.Point(3, 186);
             this.btn_images.Name = "btn_images";
             this.btn_images.Size = new System.Drawing.Size(107, 23);
             this.btn_images.TabIndex = 3;
@@ -79,38 +89,81 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(33, 86);
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(164, 221);
+            this.pictureBox.Size = new System.Drawing.Size(157, 290);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 4;
             this.pictureBox.TabStop = false;
             // 
             // text_Tag
             // 
-            this.text_Tag.Location = new System.Drawing.Point(33, 34);
+            this.text_Tag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.text_Tag.Location = new System.Drawing.Point(0, 0);
             this.text_Tag.Multiline = true;
             this.text_Tag.Name = "text_Tag";
-            this.text_Tag.Size = new System.Drawing.Size(359, 35);
+            this.text_Tag.Size = new System.Drawing.Size(471, 25);
             this.text_Tag.TabIndex = 5;
             this.text_Tag.TextChanged += new System.EventHandler(this.text_Tag_TextChanged);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.pictureBox);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.btn_Text2Img);
+            this.splitContainer1.Panel2.Controls.Add(this.btn_Text2Imgs);
+            this.splitContainer1.Panel2.Controls.Add(this.btn_images);
+            this.splitContainer1.Panel2.Controls.Add(this.btn_Config);
+            this.splitContainer1.Size = new System.Drawing.Size(471, 290);
+            this.splitContainer1.SplitterDistance = 157;
+            this.splitContainer1.TabIndex = 6;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.text_Tag);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer2.Size = new System.Drawing.Size(471, 319);
+            this.splitContainer2.SplitterDistance = 25;
+            this.splitContainer2.TabIndex = 7;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(471, 319);
-            this.Controls.Add(this.text_Tag);
-            this.Controls.Add(this.pictureBox);
-            this.Controls.Add(this.btn_images);
-            this.Controls.Add(this.btn_Config);
-            this.Controls.Add(this.btn_Text2Imgs);
-            this.Controls.Add(this.btn_Text2Img);
+            this.Controls.Add(this.splitContainer2);
             this.Name = "Form1";
             this.Text = "Ai画图桌面程序";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -122,6 +175,8 @@
         private System.Windows.Forms.Button btn_images;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox text_Tag;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 

@@ -55,19 +55,8 @@ namespace NovelAIWindowsTools
         }
         RestClient client;
         RestRequest request;
-        class MyClass
-        {
-          public  string text = "gezi";
-        }
         public Form1()
         {
-            MyClass a=null;
-            MyClass b = new MyClass();
-            Console.WriteLine(@"\\\");
-            Console.WriteLine(b?.text);
-            Console.WriteLine((a?.text??"")=="");
-            Console.WriteLine(a?.text == null);
-            Console.WriteLine(@"\\\");
             InitializeComponent();
             Init();
         }
@@ -89,7 +78,7 @@ namespace NovelAIWindowsTools
             request.AddHeader("authority", "api.novelai.net");
             request.AddHeader("accept", "*/*");
             request.AddHeader("accept-language", "zh-CN,zh;q=0.9");
-            request.AddHeader("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdJVTY1N3l4YzhVX3ZFVWU3dkwxSiIsIm5jIjoiMVZXS1Q4NVNXdkJrS0ZqV3MycDFqIiwiaWF0IjoxNjcyNzM3ODAzLCJleHAiOjE2NzUzMjk4MDN9.wiTw2AZrKwG9cfnagZEctduiV8G7XK-z2MOxFaF8QZM");
+            request.AddHeader("authorization", File.ReadAllLines("config.ini")[13]);
             request.AddHeader("content-type", "application/json");
             request.AddHeader("origin", "https://novelai.net");
             request.AddHeader("referer", "https://novelai.net/");
@@ -106,13 +95,20 @@ namespace NovelAIWindowsTools
             var body = $@"{{""input"":""masterpiece, best quality,{keyword}"",""model"":""{model}"",""parameters"":{{""width"":{width},""height"":{height},""scale"":11,""sampler"":""k_euler_ancestral"",""steps"":28,""seed"":{seed + num},""n_samples"":1,""ucPreset"":0,""qualityToggle"":true,""uc"":""{badText2}""}}}}";
             request.AddParameter("application/json", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
+
             Console.WriteLine("返回数据包长度" + response.Content.Length);
             try
             {
                 var data = response.Content.Replace("event: newImage\nid: 1\ndata:", "");
                 byte[] bytes = Convert.FromBase64String(data);
-                //string fileName = $"text2img/[masterpiece, best quality,{keyword}]_{seed + num}.jpg";
-                string fileName = $"text2img/[masterpiece, best quality,]_{seed + num}.jpg";
+                string newFileName = keyword
+                                        .Replace("{", "")
+                                        .Replace("}", "")
+                                        .Replace("(", "")
+                                        .Replace(")", "");
+
+                string fileName = $"text2img/[masterpiece, best quality,{newFileName}_{seed + num}.jpg";
+                //string fileName = $"text2img/[masterpiece, best quality,]_{seed + num}.jpg";
                 File.WriteAllBytes(fileName, bytes);
 
                 pictureBox.Invoke(new EventHandler(delegate
@@ -164,6 +160,7 @@ namespace NovelAIWindowsTools
         private void text_Tag_TextChanged(object sender, EventArgs e)
         {
             var lines = File.ReadAllLines("config.ini");
+            text_Tag.Text = text_Tag.Text.Replace("\r", "").Replace("\n", "");
             lines[1] = text_Tag.Text;
             File.WriteAllLines("config.ini", lines);
         }
